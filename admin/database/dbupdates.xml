@@ -1,0 +1,84 @@
+<dbupdates>
+        <dbupdate date="20140130">
+        <update id="1">
+            create table adminusers (
+                adminUsersId int unsigned not null auto_increment primary key,
+                email varchar(255) not null,
+                password varchar(255) not null,
+                created datetime not null,
+                lastUpdated timestamp not null on update current_timestamp
+            ) engine InnoDB;
+        </update>
+        <update id="2">
+            insert into adminusers (email, password, created) values ('jonforest@gmail.com', 'abc123.', now());
+        </update>
+        <rollback id="1">
+            drop table adminusers;
+        </rollback>
+        <rollback id="2">
+            drop table adminusers;
+        </rollback>
+    </dbupdate>
+    <dbupdate date="20140201">
+        <update id="3">
+            create table categories (
+                categoryId int unsigned not null auto_increment primary key,
+                name varchar(255) not null,
+                heroText text not null,
+                status tinyint not null default 1,
+                created datetime not null,
+                lastUpdated timestamp not null on update current_timestamp
+            )  engine InnoDB;
+        </update>
+        <update id="4">
+            insert into categories (name, created) values
+            ('Eyewear', now()), ('Gonad Shield', now()), ('Hand Protection', now()), ('Head and Patient Shield', now()), ('Thyroid Shield', now()), ('Ultra Apron', now());
+        </update>
+    </dbupdate>
+    <dbupdate date="20140202">
+        <update id="5">
+            create table products (
+                productId int unsigned not null auto_increment primary key,
+                categoryId int unsigned null,
+                price  decimal(8,2) not null,
+                name text,
+                status tinyint not null default 1,
+                created datetime not null,
+                lastUpdated timestamp not null on update current_timestamp,
+                foreign key FK_products_categories (categoryId) references categories(categoryId) on delete set null
+            )  engine InnoDB;
+        </update>
+        <update id="6">
+            create table productdetailitems (
+                productDetailItemId int unsigned not null auto_increment primary key,
+                productId int unsigned not null,
+                description text,
+                status tinyint not null default 1,
+                created datetime not null,
+                lastUpdated timestamp not null on update current_timestamp,
+                foreign key FK_productsdetailsitems_product (productId) references products(productId) on delete cascade
+            )  engine InnoDB;
+        </update>
+        <rollback id="5">
+            drop table products;
+        </rollback>
+        <rollback id="6">
+            drop table productdetailitems;
+        </rollback>
+    </dbupdate>
+    <dbupdate>
+        <update id="7">
+            create table images (
+                imageId int unsigned not null auto_increment primary key,
+                productId int unsigned not null,
+                imagePath varchar(255),
+                imageTitle varchar(100),
+                caption text,
+                status tinyint not null default 1,
+                created datetime not null,
+                lastUpdated timestamp not null on update current_timestamp
+            );
+        </update>
+    </dbupdate>
+
+ </dbupdates>

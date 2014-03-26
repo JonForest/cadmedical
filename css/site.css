@@ -1,0 +1,121 @@
+/* Helper Classes */
+.smallVerticalSpacer {
+    display: block;
+    height: 30px;
+}
+
+.products, .main {
+    max-width: 1200px;
+}
+
+
+/* Products Nav */
+#mynav {
+    min-height: 0;
+}
+
+/* Products display */
+.bodyproduct {
+    padding-top: 0px;
+    font-size: 17px;
+}
+
+#productImage .thumbnail {
+    margin-top: -50px;
+}
+
+#products .well {
+    background-image: linear-gradient(to bottom, rgba(131, 164, 192, 1) 0%, #f5f5f5 100%)
+}
+
+.productDetails li, .categoryDetails li {
+    padding-bottom: 15px;
+}
+.categoryDetails li:last-child {
+    padding-bottom: 0;
+}
+
+
+
+/* Hero Text */
+.hero-home {
+    width: 100%;
+    /*background-color: #eeeeee;*/
+    text-align: center;
+    padding-top: 140px;
+    /*padding-bottom: 80px;*/
+    padding-bottom: 30px;
+    font-size: 60px;
+    font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
+    font-weight: 700;
+}
+
+.hero-edit {
+    width: 100%;
+    /*background-color: #eeeeee;*/
+    text-align: center;
+    font-size: 60px;
+    font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
+    font-weight: 700;
+}
+
+
+.subText {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.stand-out {
+    color: #428bca;
+}
+
+/*.categoryCommon {*/
+    /*background-color: rgba(120, 66, 202, 0.49); */
+/*}*/
+
+.wellCategoryCommon {
+    /*background-image: linear-gradient(to bottom, rgba(120, 66, 202, 0.49) 0%, #f5f5f5 100%);*/
+    background-image: none;
+    background-color: #1DD1BC;
+    float: none;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    font-size: 17px;
+}
+
+.categoryDetails {
+    /*width: 50%;*/
+    font-size: 17px;
+    text-align: justify;
+    margin-bottom: 30px;
+}
+
+.modal-image {
+    width: 100%;
+}
+
+
+/*#products.col-md-8, #products.col-lg-8 {*/
+    /*position : static;*/
+/*}*/
+
+
+/* Admin */
+#file_upload {
+    visibility: hidden;
+}
+
+.footerButton {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.overlay {
+    position:relative;
+    z-index: 100;
+}
+
+/* Make the bootstrap table stripping visible */
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+    background-color: #DBDBDB;
+}

@@ -1,0 +1,24 @@
+<dbupdate>
+    <update>
+        create database cadmedical
+    </update>
+    <update>
+        create user 'cadmedicaluser'@'localhost' identified by 'HopperMyD0g';
+    </update>
+    <update>
+        GRANT delete ON cadmedical . * TO 'cadmedicaluser'@'localhost';
+    </update>
+    <update>
+        GRANT insert ON cadmedical . * TO 'cadmedicaluser'@'localhost';
+    </update>
+    <update>
+        GRANT select ON cadmedical . * TO 'cadmedicaluser'@'localhost';
+    </update>
+    <update>
+        GRANT update ON cadmedical . * TO 'cadmedicaluser'@'localhost';
+    </update>
+    <update>
+        flush privileges;
+    </update>
+
+</dbupdate>

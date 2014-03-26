@@ -1,0 +1,22 @@
+input.productDetail, input.categoryDetail {
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 97%
+}
+
+.priceDiscriminator {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#addPricesButton {
+    margin-top: 20px;
+}
+
+.bootstrap-switch-container {
+    height: 24px;
+}
+
+#sizingTxt {
+    height: 150px;
+}
