@@ -1,0 +1,26 @@
+<?php
+/**
+ * @author: Jonathan Hollingsworth
+ * @description: common db connection code
+ */
+
+//$con = new mysqli("localhost","ablef014_cad", "password", "ablef014_cadmedical");
+$con = new mysqli("localhost","cadmedicaluser", "password", "cadmedical");
+
+/* check connection */
+if (mysqli_connect_errno($con))
+{
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+/**
+ * @return mysqli
+ */
+function getConnection()
+{
+    //$con = new mysqli("localhost","ablef014_cad", "password", "ablef014_cadmedical");
+    $con = new mysqli("localhost","cadmedicaluser", "password", "cadmedical");
+
+    return $con;
+}
+?>
