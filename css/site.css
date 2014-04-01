@@ -119,3 +119,13 @@
 .table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
     background-color: #DBDBDB;
 }
+
+#mainHtml {
+    color: #666;
+    text-align: justify;
+}
+
+#mainHtml p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

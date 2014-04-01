@@ -1,19 +1,33 @@
 <?php
 /**
  * @author: Jonathan Hollingsworth
- * @description: Add or edit content for a non-product page
+ * @description: Add a new product
  */
 
 // Required files
 require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
 require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/checkpermissions.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/content.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/page.helper.php";
 
-$contentId = isset($_GET['c']) ? $_GET['c'] : 0;
 
-$contentHelper = new ContentHelper($con);
-$content = $contentHelper->getContentById($contentId);
-$pages = $contentHelper->getAllPages();
+$pageId = $_REQUEST['p'];
+if (isset($pageId)) {
+    //Prepare the pages object for bootstrapping into the page
+    $pageHelper = new pageHelper();
+    $page = $pageHelper->getPage($pageId);
+}
+
+
+//$categoryId = $_REQUEST['c'];
+//$isNewCategory = false;
+//if (!isset($categoryId)) {
+//    //CategoryId has not been set, so must be a new category
+//    $isNewCategory = true;
+//}
+
+
+
+
 ?>
 
 <html>
@@ -21,20 +35,41 @@ $pages = $contentHelper->getAllPages();
     <title></title>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/site_old.css">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
 <body>
-<h1>Admin page</h1>
+
+<h1>Edit Content - </h1>
 
 <section>
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8" id="body"></div>
+            <div class="col-md-8" id="body">
+
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#edit" data-toggle="tab">Edit</a></li>
+                    <li><a href="#preview" data-toggle="tab">Preview</a></li>
+                </ul>
+
+              <div id="tabContent">
+
+              </div>
+
+
+
+
+
+
+            </div>
             <div class="col-md-2"></div>
         </div>
     </div>
+
 
 </section>
 
@@ -43,80 +78,48 @@ $pages = $contentHelper->getAllPages();
 
 
 <section id="templates">
-    <script type="text/template" id="productedit_template">
-        <form role="form" class="form-horizontal" id="editProductForm">
-            <div class="form-group">
-                <label for="categorySelect">Content Page</label>
-                <select id="categorySelect" class="form-control">
-                    <option value="0">Select page...</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="productNameInput">Product Name</label>
-                <input id="productNameInput" placeholder="Enter product name" class="form-control" value="<%=model.get('name')%>")>
-            </div>
-            <div class="form-group">
+    <script type="text/template" id="contentEdit_template">
+        <div class="tab-content">
+            <div class="tab-pane active" id="edit">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="pageName">Name of Page</label>
+                        <input type="text" id="pageName" class="form-control" value="<%=model.get('title')%>">
+                    </div>
+                    <div class="form-group">
+                        <label for="reference">Reference (no spaces)</label>
+                        <input type="text" id="reference" class="form-control" value="<%=model.get('reference')%>">
+                    </div>
 
-                <div id="thumbnailsDiv">
-                    <label class="bigLabel">Add photo</label><br>
-                    <button class="btn btn-primary" id="uploadImageButton">
-                        <span class="glyphicon glyphicon-camera"></span>
-                    </button>
+                    <div class="form-group">
+                        <label for="heroText">HeroText</label>
+                        <textarea id="heroText" class="form-control"><%=model.get('heroText')%></textarea>
+                    </div>
+
+                    <pre class="aceEditor" id="pageContent"></pre>
+                </form>
+
+            </div>
+            <div class="tab-pane" id="preview">
+                <h1 id="pageNamePreview"></h1>
+                <h3 id="referencePreview"></h3>
+
+                <div class="form-group">
+                    <!--<label for="heroTextPreview">HeroText Preview:</label>-->
+                    <div id="heroTextPreview" class="hero-edit">
+                    <%=model.get('heroText')%>
+                </div>
+
+
+                <div id="pagePreview" class="aceEditor main">
 
                 </div>
             </div>
-            <div id="prices">
-
-
-            </div>
-            <div class="form-group" >
-                <label>Product Details</label>
-                <ol id="detailsGroup">
-                </ol>
-                <button class="btn btn-primary" id="addDetailsButton"><span class="glyphicon glyphicon-plus"></span> Add</button>
-            </div>
-            <!--        <div class="form-group">-->
-            <!--            <label for="productNameInput">Product Name</label>-->
-            <!--            <input id="productNameInput" placeholder="Enter product name" class="form-control">-->
-            <!--        </div>-->
-
-            <div class="smallVerticalSpacer"></div>
-            <button class="btn btn-success pull-right footerButton" id="submitButton"><span class="glyphicon glyphicon-save"></span> Save</button>
-            <a href="landing.php" class="btn btn-warning pull-right footerButton"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
-        </form>
-        <form id="imageForm">
-            <input type="hidden" name="productId" id="productId" value="<%=model.get('productId')%>">
-            <input type="file" name="file_upload" id="file_upload">
-        </form>
-    </script>
-
-    <script type="text/template" id="imageLoaded_template">
-        <div class="thumbnailDiv center">
-            <image src="../<%=model.get('thumbnail')%>" class="img-rounded">
-                <div class="captionArea">
-                    <input type="text" placeholder="Title..." class="form-control" id="titleInput" value="<%=model.get('imageTitle')%>">
-                    <textarea id="captionTxt" placeholder="Enter you caption here..." class="form-control"><%=model.get('caption')%></textarea>
-                </div>
-                <a href="#" id="removeImageLink">Remove</a>
         </div>
+
+        <button class="btn btn-success pull-right footerButton" id="submitButton"><span class="glyphicon glyphicon-save"></span> Save</button>
+        <a href="landing.php?a=content" class="btn btn-warning pull-right footerButton"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
     </script>
-
-    <script type="text/template" id="categorylist_template">
-        <%=model.get('name')%>
-    </script>
-
-    <script type="text/template" id="productdetail_template">
-        <li type="1">
-            <input type="text" class="productDetail inline form-control" data-productdetailitemid="<%=model.get('productDetailItemId')%>"
-                   data-ordernumber="<%=model.get('orderNumber')%>" value="<%=model.get('description')%>">
-            <% if (model.get('productDetailItemId') !== undefined) {%>
-                <button type="button" class="close" aria-hidden="true">&times;</button>
-            <% } %>
-
-        </input></li>
-    </script>
-
-
 
 </section>
 
@@ -126,24 +129,59 @@ $pages = $contentHelper->getAllPages();
 <script language="Javascript" src="../js/libraries/jquery2.0.3.js"></script>
 <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
 <script language="Javascript" src="../bootstrap/js/bootstrap.js"></script>
+<script language="Javascript" src="../bootstrap/js/bootstrap-switch.min.js"></script>
 <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
-<script language="JavaScript" src="js/editproduct/categoryOptions_view.js"></script>
-<script language="JavaScript" src="js/editproduct/productEdit_view.js"></script>
-<script language="JavaScript" src="js/editproduct/productEdit_app.js"></script>
-<script language="Javascript" src="../ckeditor4/ckeditor.js"></script>
+<script language="JavaScript" src="js/editcontent/pageEdit_view.js"></script>
+<!--<script language="JavaScript" src="js/editcontent/categoryEdit_view.js"></script>-->
+<script src="../src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    var categories;
+    var page;
+    var editor;
+    var contentView;
+
+
+
+
+    var editorEvents = function() {
+        var syncHtml;
+
+        editor.getSession().on('change', function(){
+            syncHtml();
+        });
+
+        syncHtml = function() {
+            $('#pagePreview').html(editor.getSession().getValue());
+        };
+
+        return {
+            syncHtml : syncHtml
+        }
+    };
+
+
 
     $(document).ready(function() {
-        var productId = <?=$productId?>;
-        var newProduct = <?= $newProduct === true ? 'true' :  'false'?>;
-        categories = new ablefutures.cadmedical.collections.categories();
-        categories.reset(<?=json_encode($categories)?>);
+        page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
+        contentView = new ablefutures.cadmedical.views.pageEdit(
+            {model : page,
+            el : '#tabContent'}
+        );
 
-        ablefutures.cadmedical.app.newproduct.init(newProduct, productId);
+        contentView.render();
+
+        editor = ace.edit("pageContent");
+        editor.setTheme("ace/theme/twilight");
+        editor.getSession().setMode("ace/mode/html");
+        editor.session.setValue(page.get('content').get('html'));
+
+        editorEvents();
+        editorEvents().syncHtml();
+
     });
 </script>
 
 </body>
 </html>
+
+

@@ -15,3 +15,5 @@ alter table categories
   add column details text after heroText;
 
 alter table categories add column sizingHtml text null after details;
+
+alter table pages add column heroText text null after reference;

@@ -3,7 +3,7 @@
  */
 
 
-ablefutures.cadmedical.app.categoryEdit = (function($,_) {
+ablefutures.cadmedical.app.categoryEdit = (function($) {
 
     'use strict';
 
@@ -23,29 +23,24 @@ ablefutures.cadmedical.app.categoryEdit = (function($,_) {
 
 
         renderForm();
-//        eventsInit();
     }
 
     function renderForm()
     {
+        var categoryEdit;
 
         if (isNewCategory) {
-            var categoryEdit = new ablefutures.cadmedical.views.categoryEdit({
+            categoryEdit = new ablefutures.cadmedical.views.categoryEdit({
                 model : new ablefutures.cadmedical.models.category()
             });
             $('#body').html(categoryEdit.render().$el);
         } else {
-            var productEdit = new ablefutures.cadmedical.views.productEdit({
+            categoryEdit = new ablefutures.cadmedical.views.categoryEdit({
                 model : category
             });
-            $('#body').html(productEdit.render().$el);
+            $('#body').html(categoryEdit.render().$el);
 
         }
-    }
-
-    function eventsInit()
-    {
-
     }
 
 
@@ -53,5 +48,5 @@ ablefutures.cadmedical.app.categoryEdit = (function($,_) {
         init : init
     }
 
-})($,_);
+})($);
 
