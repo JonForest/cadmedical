@@ -73,6 +73,7 @@ create table pages (
   pageId int unsigned not null auto_increment primary key,
   title varchar(200),
   reference varchar(100),
+  heroText text,
   status tinyint not null default 1,
   created datetime not null,
   lastUpdated timestamp not null on update current_timestamp

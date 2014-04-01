@@ -20,3 +20,8 @@ input.productDetail, input.categoryDetail {
 #sizingTxt {
     height: 150px;
 }
+
+.aceEditor {
+    min-height: 300px;
+    max-width: 1000px;
+}

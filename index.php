@@ -123,10 +123,10 @@ $categories = $categoryHelper->getAllCategories();
 <section id="footer" class="navbar navbar-inverse">
     <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 col-xs-12 col-sm-12">
         <ul class="nav navbar-nav">
-            <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-repeat"></span> Returns Policy</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Company Info / Legal</a></li>
+            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
+            <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
+            <li><a href="content.php?r=returns"><span class="glyphicon glyphicon-repeat"></span> Returns Policy</a></li>
+            <li><a href="content.php?r=legal"><span class="glyphicon glyphicon-pencil"></span> Company Info / Legal</a></li>
         </ul>
     </div>
 </section>

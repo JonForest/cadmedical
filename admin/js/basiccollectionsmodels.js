@@ -81,4 +81,25 @@ ablefutures.cadmedical.collections.categories = Backbone.Collection.extend({
     url: '../api/categoriesRouter.php'
 });
 
+ablefutures.cadmedical.models.content = Backbone.Model.extend({
+    idAttribute : 'contentId'
+});
+
+
+ablefutures.cadmedical.models.page = Backbone.Model.extend({
+    idAttribute : 'pageId',
+
+    parse : function(response)
+    {
+        response.content = new ablefutures.cadmedical.models.content(response.content);
+
+        return response;
+    }
+});
+
+ablefutures.cadmedical.collections.pages = Backbone.Collection.extend({
+
+    model: ablefutures.cadmedical.models.page,
+    url: '../api/pagesRouter.php'
+});
 
