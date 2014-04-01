@@ -17,17 +17,6 @@ if (isset($pageId)) {
     $page = $pageHelper->getPage($pageId);
 }
 
-
-//$categoryId = $_REQUEST['c'];
-//$isNewCategory = false;
-//if (!isset($categoryId)) {
-//    //CategoryId has not been set, so must be a new category
-//    $isNewCategory = true;
-//}
-
-
-
-
 ?>
 
 <html>
@@ -59,11 +48,6 @@ if (isset($pageId)) {
               <div id="tabContent">
 
               </div>
-
-
-
-
-
 
             </div>
             <div class="col-md-2"></div>
@@ -105,7 +89,6 @@ if (isset($pageId)) {
                 <h3 id="referencePreview"></h3>
 
                 <div class="form-group">
-                    <!--<label for="heroTextPreview">HeroText Preview:</label>-->
                     <div id="heroTextPreview" class="hero-edit">
                     <%=model.get('heroText')%>
                 </div>

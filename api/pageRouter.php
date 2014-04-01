@@ -5,21 +5,19 @@
  * @description: Page Router
  */
 require "common/dbconnection.php";
-//require "classes/category.class.php";
 require "classes/product.class.php";
 require "classes/helper/page.helper.php";
 
-//require_once('recipe.helper.php');
 $method = $_SERVER['REQUEST_METHOD'];
 $action = isset($_GET['action']) ? $_GET['action'] : 'none';
 
 switch ($method) {
     case "GET":
         //Get all tasks
-        $categoryHelper = new PageHelper();
-        $categories = $categoryHelper->getAllPages();
+        $pageHelper = new PageHelper();
+        $pages = $pageHelper->getPages();
 
-        echo json_encode($categories);
+        echo json_encode($pages);
         break;
     case "POST":
         if ($action === 'save') {
