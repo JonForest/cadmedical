@@ -20,8 +20,10 @@
     font-size: 17px;
 }
 
-#productImage .thumbnail {
-    margin-top: -50px;
+@media (min-width: 992px) {
+    #productImage .thumbnail {
+        margin-top: -50px;
+    }
 }
 
 #products .well {
@@ -128,4 +130,11 @@
 #mainHtml p {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#footer .navbar-nav{
+    margin: 0 auto;
+    display: table;
+    table-layout: fixed;
+    float:none;
 }
