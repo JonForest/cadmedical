@@ -46,8 +46,8 @@ $categories = $categoryHelper->getAllCategories();
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="about.php"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                    <li><a href="contact.php"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
+                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
                     <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">

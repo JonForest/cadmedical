@@ -51,8 +51,8 @@ $products = $productHelper->getProducts($categoryId);
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="about.php"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                    <li><a href="contact.php"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
+                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
                     <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Search">
@@ -193,9 +193,9 @@ $products = $productHelper->getProducts($categoryId);
     <script type="text/template" id="price_template">
 
             <%if (model.get('priceOnRequest')) {%>
-                <div class="costAmount">price on request</div>
+                <div class="costAmount">Price on request</div>
             <%} else {%>
-                <%=model.get('priceFrom') ? 'from ' : '' %><div class="costAmount">$<%=model.get('price')%></div>
+                <%=model.get('priceFrom') ? 'From ' : '' %><div class="costAmount">$<%=model.get('price')%></div>
             <% } %>
             <% if (model.get('priceDiscriminator')) { %>
                 - <%=model.get('priceDiscriminator')%>
