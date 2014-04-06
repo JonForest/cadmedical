@@ -48,11 +48,11 @@ $categories = $categoryHelper->getAllCategories();
 
                     <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
                     <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
-                    <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search">
+                    <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" id="searchButton" class="btn btn-default">Submit</button>
                     </form></li>
                 </ul>
 
@@ -151,6 +151,16 @@ $categories = $categoryHelper->getAllCategories();
 <script language="JavaScript" src="js/site.js"></script>
 <script>
 $(document).ready(function() {
+
+    $('#searchButton').on('click', function(e) {
+        e.preventDefault();
+        if ($('#searchInput').val().trim() !== '') {
+            $('#searchForm').submit();
+        }
+
+    });
+
+
     var categories = new ablefutures.cadmedical.collections.categories();
     categories.reset(<?=json_encode($categories)?>);
     var categoryId = <?= $categoryId?>;
@@ -164,6 +174,8 @@ $(document).ready(function() {
         {collection : categories,
             categoryId : categoryId});
     $('#categoriesListSmall').append(categoriesNavViewSmall.render().el);
+
+
 
 
 })

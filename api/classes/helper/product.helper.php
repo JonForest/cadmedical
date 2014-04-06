@@ -52,36 +52,7 @@ class ProductHelper {
 
             $product->prices = $this->getPrices($product->productId);
             $product->images = $this->getImages($product->productId);
-
-            $productDetailItemId = 0;
-            $description = '';
-            $sql = "select productDetailItemId, description, status from productdetailitems
-               WHERE productId = ? and status=1";
-            $stmt2 = $con2->prepare($sql);
-            $stmt2->bind_param("i",$productId);
-            $stmt2->execute();
-            $stmt2->store_result();
-            $stmt2->bind_result($productDetailItemId, $description, $status);
-
-            /** @var ProductDetailItem[] $productDetailItems */
-            $productDetailItems = array();
-
-            if ($stmt2->num_rows > 0) {
-                while ($stmt2->fetch())
-                {
-                    /** @var ProductDetailItem $productDetailItem */
-                    $productDetailItem = new ProductDetailItem();
-                    $productDetailItem->productId = $productId;
-                    $productDetailItem->productDetailItemId = $productDetailItemId;
-                    $productDetailItem->description = $description;
-                    $productDetailItem->status = $status;
-
-                    $productDetailItems[] = $productDetailItem;
-                }
-
-
-                $product->productDetailItems = $productDetailItems;
-            }
+            $product->productDetailItems = $this->getProductDetailItems($product->productId);
 
             $products[] = $product;
         }
@@ -90,6 +61,41 @@ class ProductHelper {
 
         return $products;
 //    return array('results'=>true);
+    }
+
+    private function getProductDetailItems($productId)
+    {
+        $con = getConnection();
+        $productDetailItemId = 0;
+        $description = '';
+        $status='';
+
+        $sql = "select productDetailItemId, description, status from productdetailitems
+               WHERE productId = ? and status=1";
+        $stmt2 = $con->prepare($sql);
+        $stmt2->bind_param("i",$productId);
+        $stmt2->execute();
+        $stmt2->store_result();
+        $stmt2->bind_result($productDetailItemId, $description, $status);
+
+        /** @var ProductDetailItem[] $productDetailItems */
+        $productDetailItems = array();
+
+        if ($stmt2->num_rows > 0) {
+            while ($stmt2->fetch())
+            {
+                /** @var ProductDetailItem $productDetailItem */
+                $productDetailItem = new ProductDetailItem();
+                $productDetailItem->productId = $productId;
+                $productDetailItem->productDetailItemId = $productDetailItemId;
+                $productDetailItem->description = $description;
+                $productDetailItem->status = $status;
+
+                $productDetailItems[] = $productDetailItem;
+            }
+        }
+
+        return $productDetailItems;
     }
 
     private function getPrices($productId)
@@ -167,5 +173,91 @@ class ProductHelper {
         $stmt = $con->prepare($sql);
         $stmt->execute();
         return $stmt->insert_id;
+    }
+
+    public function searchProducts($searchTerm)
+    {
+        $individualTerms = explode(' ', $searchTerm);
+        $searchTerm = '%'.$searchTerm.'%';
+        foreach($individualTerms as &$term) {
+            $term = '%'.$term.'%';
+        }
+        $parameters = array();
+
+        /** @var /Product[] $products */
+        $products  = array();
+        $sql = " select SUM(res.relevance) as relevance, res.productId, res.categoryId, res.price, res.name from (
+                      SELECT 10 as relevance, p.* FROM products p
+                        WHERE name LIKE ? and p.status=1
+                    union
+                        select 5 as relevance, p.* FROM products p
+                        WHERE p.status = 1 and ";
+        $parameters[] = &$searchTerm;
+
+        foreach ($individualTerms as $item) {
+            $test = $item;
+            $sql .= 'name like ? or ';
+            $parameters[] = &$test;
+
+        }
+        $sql = substr($sql, 0, -3);
+
+        $sql .=        " union
+                            select 5 as relevance, p.* FROM products p
+                                inner join productdetailitems pd on
+                                    pd.productId = p.productId
+                            WHERE pd.status=1 and pd.description LIKE ?
+                        union
+                            select 2 as relevance, p.* from products p
+                             inner join productdetailitems pd on
+                                    pd.productId = p.productId
+                            WHERE pd.status = 1 and ";
+
+        $parameters[] = &$searchTerm;
+        foreach ($individualTerms as $item) {
+            $sql .= 'description like ? or ';
+            $parameters[] = &$item;
+
+        }
+        $sql = substr($sql, 0, -3);
+
+        $sql .= ") as res group by productId order by relevance desc";
+
+        $stmt = $this->con->prepare($sql);
+
+        $params = array_merge(array(str_repeat('s', count($parameters))), array_values($parameters));
+
+        call_user_func_array(array(&$stmt, 'bind_param'), $params);
+
+        $relevance = 0;
+        $categoryId=0;
+        $price=0;
+        $name ='';
+
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($relevance, $productId, $categoryId, $price, $name);
+
+        $products = array();
+        if ($stmt->num_rows > 0) {
+            while ($stmt->fetch())
+            {
+                /** @var Product $product */
+                $product = new Product();
+
+                $product->productId = $productId;
+                $product->categoryId = $categoryId;
+                $product->price = $price;
+                $product->name = $name;
+
+                $product->prices = $this->getPrices($product->productId);
+                $product->images = $this->getImages($product->productId);
+                $product->productDetailItems = $this->getProductDetailItems($product->productId);
+
+                $products[] = $product;
+            }
+        }
+
+        return $products;
     }
 }
