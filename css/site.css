@@ -55,10 +55,8 @@
 /* Hero Text */
 .hero-home {
     width: 100%;
-    /*background-color: #eeeeee;*/
     text-align: center;
     padding-top: 140px;
-    /*padding-bottom: 80px;*/
     padding-bottom: 30px;
     font-size: 60px;
     font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
@@ -67,10 +65,8 @@
 
 .hero-category {
     width: 100%;
-    /*background-color: #eeeeee;*/
     text-align: center;
     padding-top: 95px;
-    /*padding-bottom: 80px;*/
     padding-bottom: 30px;
     font-size: 60px;
     font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
@@ -79,10 +75,8 @@
 
 .hero-content {
     width: 100%;
-    /*background-color: #eeeeee;*/
     text-align: center;
     padding-top: 125px;
-    /*padding-bottom: 80px;*/
     padding-bottom: 30px;
     font-size: 60px;
     font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
@@ -108,12 +102,7 @@
     color: #428bca;
 }
 
-/*.categoryCommon {*/
-    /*background-color: rgba(120, 66, 202, 0.49); */
-/*}*/
-
 .wellCategoryCommon {
-    /*background-image: linear-gradient(to bottom, rgba(120, 66, 202, 0.49) 0%, #f5f5f5 100%);*/
     background-image: none;
     background-color: #1DD1BC;
     float: none;
@@ -123,7 +112,6 @@
 }
 
 .categoryDetails {
-    /*width: 50%;*/
     font-size: 17px;
     text-align: justify;
     margin-bottom: 30px;
