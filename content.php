@@ -32,25 +32,27 @@ if(isset($reference)) {
     <link rel="stylesheet" type="text/css" href="css/site.css">
 </head>
 <body>
+    
+<div class="body">
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">CADMEDICAL<br>IMAGING</a></a>
-            <span class="hidden-xs hidden-sm hidden-md logo">'Quality Radiation Protection'</span>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.php">CADMEDICAL<br>IMAGING</a></a>
+                <span class="hidden-xs hidden-sm hidden-md logo">'Quality Radiation Protection'</span>
 
-            <div class="hidden-lg categoriesDropDown" id="categoriesListSmall">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                <div class="hidden-lg categoriesDropDown" id="categoriesListSmall">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                </div>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
 
                 <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
                 <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
@@ -62,19 +64,20 @@ if(isset($reference)) {
                     </form></li>
             </ul>
 
-            <div class="nav navbar-nav navbar-left hidden-xs hidden-sm hidden-md" id="categoriesList"></div>
+
+                <div class="nav navbar-nav navbar-left hidden-xs hidden-sm hidden-md" id="categoriesList"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<section class="hero-home">
+    <section class="hero-content">
 
-</section>
+    </section>
 
 
-<div class="body">
 
-    <div id="wrap">
+
+    <div>
 
         <div class="container main">
             <div class="row">
@@ -85,6 +88,9 @@ if(isset($reference)) {
 
         </div>
     </div>
+
+    <div class="push"></div>
+
 </div>
 
 <section id="footer" class="navbar navbar-inverse">
@@ -149,7 +155,7 @@ if(isset($reference)) {
 
         pageView.render();
 
-        $('.hero-home').html(page.get('heroText'));
+        $('.hero-content').html(page.get('heroText'));
 
     })
 </script>
