@@ -31,7 +31,7 @@ $products = $productHelper->getProducts($categoryId);
 </head>
 <body>
 
-<div id="wrap">
+<div class="body">
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -97,7 +97,9 @@ $products = $productHelper->getProducts($categoryId);
         </div>
 
     </section>
-
+    <div class="center">'Prices inclusive of delivery costs.'<br>
+        'Sales tax has not been applied. You may be required to pay Goods and Service Tax at your local customs.'</div>
+    <div class="push"></div>
 </div> <!-- wrap -->
 
 
@@ -125,7 +127,7 @@ $products = $productHelper->getProducts($categoryId);
     </script>
 
     <script type="text/template" id="categoryHeroText_template">
-        <div class="hero-home row">
+        <div class="hero-category row">
             <%=model.get('heroText')%>
         </div>
         <%if (model.get('details')) {%>
@@ -135,10 +137,10 @@ $products = $productHelper->getProducts($categoryId);
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2 hidden-xs hidden-sm"></div>
-                            <div class="col-md-8 col-sm-12 col-xs-12 categoryDetails">
+                            <div class="col-md-10 col-sm-12 col-xs-12 categoryDetails">
                                 <%=model.get('details')%>
                             </div>
-                            <div class="col-md-2 hidden-xs hidden-sm"></div>
+                            <div class="col-md-0 hidden-xs hidden-sm"></div>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,16 @@
+
+.body {
+    padding-top: 0;
+    min-height: 100%;
+    height: auto !important;
+    margin: 0 auto -50px;
+}
+
+.push {
+    margin-bottom: 50px;
+}
+
+
 /* Helper Classes */
 .smallVerticalSpacer {
     display: block;
@@ -45,6 +58,30 @@
     /*background-color: #eeeeee;*/
     text-align: center;
     padding-top: 140px;
+    /*padding-bottom: 80px;*/
+    padding-bottom: 30px;
+    font-size: 60px;
+    font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
+    font-weight: 700;
+}
+
+.hero-category {
+    width: 100%;
+    /*background-color: #eeeeee;*/
+    text-align: center;
+    padding-top: 95px;
+    /*padding-bottom: 80px;*/
+    padding-bottom: 30px;
+    font-size: 60px;
+    font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
+    font-weight: 700;
+}
+
+.hero-content {
+    width: 100%;
+    /*background-color: #eeeeee;*/
+    text-align: center;
+    padding-top: 125px;
     /*padding-bottom: 80px;*/
     padding-bottom: 30px;
     font-size: 60px;
@@ -137,4 +174,10 @@
     display: table;
     table-layout: fixed;
     float:none;
+}
+
+.center {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
 }
