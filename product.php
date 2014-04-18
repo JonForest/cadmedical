@@ -3,11 +3,17 @@
  * @author: Jonathan Hollingsworth
  * @description: Product
  */
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/category.helper.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/product.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/product.helper.php";
 
 $categoryId = isset($_GET['c']) ? $_GET['c'] : 0;
 $searchTerm = isset($_REQUEST['searchInput']) ? $_REQUEST['searchInput'] : null;
@@ -248,7 +254,6 @@ if ($categoryId !== 0) {
 <script language="JavaScript" src="js/product/prices_view.js"></script>
 <script language="JavaScript" src="js/product/product_view.js"></script>
 
-<!--<script language="JavaScript" src="js/site.js"></script>-->
 <script language="JavaScript">
     $(document).ready(function() {
         $('#searchButton').on('click', function(e) {
@@ -300,8 +305,9 @@ if ($categoryId !== 0) {
 
         var $products = $('#products');
         var $productNavItems = $('#productNavItems');
+
         $products.empty();
-        //$productNavItems.empty();
+
         var products = new ablefutures.cadmedical.collections.products();
         products.reset(<?=json_encode($products)?>, {parse :true});
         products.each(function(model) {
@@ -317,7 +323,7 @@ if ($categoryId !== 0) {
         $('#mynav').affix(
             {
                 offset: {
-                    top: 200 + $('#detailsDiv').height() //$('#categoryDetailsList').closest('.wellCategoryCommon').parent().height()
+                    top: 200 + $('#detailsDiv').height()
                 }
             }
         );

@@ -3,11 +3,16 @@
  * @author: Jonathan Hollingsworth
  * @description: content
  */
-
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/category.helper.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/page.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/page.helper.php";
 
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
@@ -122,6 +127,7 @@ if(isset($reference)) {
 
 
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
+<script language="javascript" src="js/libraries/jquery.validate.min.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
 <script language="javascript" src="bootstrap/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
@@ -156,6 +162,11 @@ if(isset($reference)) {
         pageView.render();
 
         $('.hero-content').html(page.get('heroText'));
+
+
+        if ($('#emailForm').length) {
+            $('#emailForm').validate();
+        }
 
     })
 </script>

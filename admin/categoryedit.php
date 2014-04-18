@@ -4,11 +4,18 @@
  * @description: Add a new product
  */
 
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
+
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/checkpermissions.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/category.helper.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/product.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/checkpermissions.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/product.helper.php";
 
 //Prepare the categories object for bootstrapping into the page
 $categoryHelper = new CategoryHelper($con);
@@ -158,13 +165,6 @@ if (!isset($categoryId)) {
         ablefutures.cadmedical.app.categoryEdit.init(isNewCategory, categories.get(<?=$categoryId?>));
 
         $('#sizingRequiredChk').bootstrapSwitch();
-//        $('#sizingRequiredChk').on('switchChange.bootstrapSwitch', function (e, data) {
-//            debugger;
-//            var $element = $(data.el),
-//                value = data.value;
-//
-//            console.log(e, $element, value);
-//        });
     });
 </script>
 

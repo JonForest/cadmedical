@@ -4,8 +4,13 @@
  * @description: Content Helper Class
  */
 
-
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/content.class.php";
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
+require $_SERVER["DOCUMENT_ROOT"]. $path . "/api/classes/content.class.php";
 
 
 class ContentHelper {

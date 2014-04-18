@@ -4,9 +4,16 @@
  * @description: Category class
  */
 
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/product.class.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/productDetailItem.class.php";
+
+require $_SERVER["DOCUMENT_ROOT"].$path."/api/classes/product.class.php";
+require $_SERVER["DOCUMENT_ROOT"].$path."/api/classes/productDetailItem.class.php";
 
 
 class ProductHelper {
@@ -179,55 +186,93 @@ class ProductHelper {
     {
         $individualTerms = explode(' ', $searchTerm);
         $searchTerm = '%'.$searchTerm.'%';
-        foreach($individualTerms as &$term) {
-            $term = '%'.$term.'%';
-        }
+
         $parameters = array();
 
         /** @var /Product[] $products */
         $products  = array();
         $sql = " select SUM(res.relevance) as relevance, res.productId, res.categoryId, res.price, res.name from (
-                      SELECT 10 as relevance, p.* FROM products p
+                      SELECT 10 as relevance, p.*, 'title' FROM products p
                         WHERE name LIKE ? and p.status=1
-                    union
-                        select 5 as relevance, p.* FROM products p
-                        WHERE p.status = 1 and ";
+                    ";
         $parameters[] = &$searchTerm;
 
-        foreach ($individualTerms as $item) {
-            $test = $item;
-            $sql .= 'name like ? or ';
-            $parameters[] = &$test;
-
+        $itemCount = count($individualTerms) > 6 ? 6 : count($individualTerms);
+        for ($x=0; $x < $itemCount; $x++) {
+            $sql .= " union
+                        select 5 as relevance, p.*, '".$x."' FROM products p
+                        WHERE p.status = 1 and ";
+            $sql .= 'name like ? ';
+            $term = '%'.$individualTerms[$x].'%';
+            $parameters[] = &$term;
         }
-        $sql = substr($sql, 0, -3);
 
         $sql .=        " union
-                            select 5 as relevance, p.* FROM products p
+                            select 4 as relevance, p.*, 'description' FROM products p
                                 inner join productdetailitems pd on
                                     pd.productId = p.productId
-                            WHERE pd.status=1 and pd.description LIKE ?
-                        union
-                            select 2 as relevance, p.* from products p
+                            WHERE pd.status=1 and pd.description LIKE ?";
+
+
+        $parameters[] = &$searchTerm;
+
+        for ($x=0; $x < $itemCount; $x++) {
+            unset($term);
+            $sql .= " union
+                            select 2 as relevance, p.*, '".$x."' from products p
                              inner join productdetailitems pd on
                                     pd.productId = p.productId
                             WHERE pd.status = 1 and ";
-
-        $parameters[] = &$searchTerm;
-        foreach ($individualTerms as $item) {
-            $sql .= 'description like ? or ';
-            $parameters[] = &$item;
-
+            $sql .= 'description like ? ';
+            $term = '%'.$individualTerms[$x].'%';
+            $parameters[] = &$term;
         }
-        $sql = substr($sql, 0, -3);
+        //$sql = substr($sql, 0, -3);
 
         $sql .= ") as res group by productId order by relevance desc";
 
         $stmt = $this->con->prepare($sql);
 
-        $params = array_merge(array(str_repeat('s', count($parameters))), array_values($parameters));
+        //$params = array_merge(array(str_repeat('s', count($parameters))), array_values($parameters));
+        $paramsArray = array();
+        $paramsArray[] = str_repeat('s', count($parameters));
+       foreach ($parameters as $param) {
+           $paramsArray[] = $param;
+       }
 
-        call_user_func_array(array(&$stmt, 'bind_param'), $params);
+
+//            call_user_func_array(array($stmt, 'bind_param'), $paramsArray);
+
+        switch (count($parameters)) {
+            case 4: //1 param
+                $stmt->bind_param('ssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3]);
+                break;
+            case 6: //two params
+                $stmt->bind_param('ssssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3],
+                    $parameters[4], $parameters[5]);
+                break;
+            case 8: //thre params
+                $stmt->bind_param('ssssssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3],
+                    $parameters[4], $parameters[5], $parameters[6], $parameters[7]);
+                break;
+            case 10: //four params
+                $stmt->bind_param('ssssssssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3],
+                    $parameters[4], $parameters[5], $parameters[6], $parameters[7], $parameters[8], $parameters[9]);
+                break;
+            case 12: //five params
+                $stmt->bind_param('ssssssssssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3],
+                    $parameters[4], $parameters[5], $parameters[6], $parameters[7], $parameters[8], $parameters[9],
+                    $parameters[10], $parameters[11]);
+                break;
+
+            default: //trim to six
+                $stmt->bind_param('ssssssssssssss', $parameters[0], $parameters[1], $parameters[2], $parameters[3],
+                    $parameters[4], $parameters[5], $parameters[6], $parameters[7], $parameters[8], $parameters[9],
+                    $parameters[10], $parameters[11], $parameters[12], $parameters[13]);
+                break;
+        }
+
+
 
         $relevance = 0;
         $categoryId=0;

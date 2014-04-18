@@ -21,6 +21,11 @@
     max-width: 1200px;
 }
 
+label.error {
+    color: #b50000;
+    font-weight: normal;
+}
+
 
 /* Products Nav */
 #mynav {
@@ -66,7 +71,7 @@
 .hero-category {
     width: 100%;
     text-align: center;
-    padding-top: 95px;
+    padding-top: 110px;
     padding-bottom: 30px;
     font-size: 60px;
     font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
@@ -85,7 +90,6 @@
 
 .hero-edit {
     width: 100%;
-    /*background-color: #eeeeee;*/
     text-align: center;
     font-size: 60px;
     font-family: nudista-web-n7 ,nudista-web,"Helvetica Neue",Helvetica,Arial sans-serif;
@@ -121,10 +125,6 @@
     width: 100%;
 }
 
-
-/*#products.col-md-8, #products.col-lg-8 {*/
-    /*position : static;*/
-/*}*/
 
 
 /* Admin */

@@ -4,10 +4,17 @@
  * @description: Add a new product
  */
 
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
+
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/checkpermissions.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/page.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path . "/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path . "/api/common/checkpermissions.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path . "/api/classes/helper/page.helper.php";
 
 
 $pageId = $_REQUEST['p'];
