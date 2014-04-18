@@ -2,7 +2,7 @@
 /* global ablefutures */
 /* global _ */
 
-(function() {
+(function () {
     'use strict';
 
     ablefutures.cadmedical.views.categoriesCommon = Backbone.View.extend({

@@ -28,12 +28,3 @@ foreach ($dir as $fileinfo) {
         }
     }
 }
-
-
-function isInDatabase($filename)
-{
-
-
-}
-
-?>

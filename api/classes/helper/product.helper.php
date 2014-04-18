@@ -12,8 +12,8 @@ if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.
 }
 
 
-require $_SERVER["DOCUMENT_ROOT"].$path."/api/classes/product.class.php";
-require $_SERVER["DOCUMENT_ROOT"].$path."/api/classes/productDetailItem.class.php";
+require $_SERVER["DOCUMENT_ROOT"] . $path . "/api/classes/product.class.php";
+require $_SERVER["DOCUMENT_ROOT"] . $path . "/api/classes/productDetailItem.class.php";
 
 
 class ProductHelper {
@@ -64,10 +64,8 @@ class ProductHelper {
             $products[] = $product;
         }
 
-       // $stmt->close();
 
         return $products;
-//    return array('results'=>true);
     }
 
     private function getProductDetailItems($productId)
@@ -227,21 +225,16 @@ class ProductHelper {
             $term = '%'.$individualTerms[$x].'%';
             $parameters[] = &$term;
         }
-        //$sql = substr($sql, 0, -3);
 
         $sql .= ") as res group by productId order by relevance desc";
 
         $stmt = $this->con->prepare($sql);
 
-        //$params = array_merge(array(str_repeat('s', count($parameters))), array_values($parameters));
         $paramsArray = array();
         $paramsArray[] = str_repeat('s', count($parameters));
        foreach ($parameters as $param) {
            $paramsArray[] = $param;
        }
-
-
-//            call_user_func_array(array($stmt, 'bind_param'), $paramsArray);
 
         switch (count($parameters)) {
             case 4: //1 param
@@ -272,8 +265,6 @@ class ProductHelper {
                 break;
         }
 
-
-
         $relevance = 0;
         $categoryId=0;
         $price=0;
@@ -285,8 +276,7 @@ class ProductHelper {
 
         $products = array();
         if ($stmt->num_rows > 0) {
-            while ($stmt->fetch())
-            {
+            while ($stmt->fetch()) {
                 /** @var Product $product */
                 $product = new Product();
 
