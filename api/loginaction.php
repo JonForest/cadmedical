@@ -26,5 +26,4 @@ if ($adminUserId > 0 ) {
     die();
 }
 
-//$mediaId = mysqli_insert_id($con);
 

@@ -3,11 +3,16 @@
  * @author: Jonathan Hollingsworth
  * @description: content
  */
-
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/category.helper.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/page.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/page.helper.php";
 
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
@@ -54,15 +59,16 @@ if(isset($reference)) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
-                    <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form></li>
-                </ul>
+                <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
+                <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+                <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
+                        <div class="form-group">
+                            <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" id="searchButton" class="btn btn-default">Submit</button>
+                    </form></li>
+            </ul>
+
 
                 <div class="nav navbar-nav navbar-left hidden-xs hidden-sm hidden-md" id="categoriesList"></div>
             </div>
@@ -121,6 +127,7 @@ if(isset($reference)) {
 
 
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
+<script language="javascript" src="js/libraries/jquery.validate.min.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
 <script language="javascript" src="bootstrap/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
@@ -131,6 +138,14 @@ if(isset($reference)) {
 <script language="JavaScript" src="js/site.js"></script>
 <script>
     $(document).ready(function() {
+        $('#searchButton').on('click', function(e) {
+            e.preventDefault();
+            if ($('#searchInput').val().trim() !== '') {
+                $('#searchForm').submit();
+            }
+
+        });
+
         var categories = new ablefutures.cadmedical.collections.categories();
         categories.reset(<?=json_encode($categories)?>);
 
@@ -147,6 +162,11 @@ if(isset($reference)) {
         pageView.render();
 
         $('.hero-content').html(page.get('heroText'));
+
+
+        if ($('#emailForm').length) {
+            $('#emailForm').validate();
+        }
 
     })
 </script>

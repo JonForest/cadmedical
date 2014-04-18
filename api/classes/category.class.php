@@ -12,11 +12,6 @@ class Category
 
     public $heroText;
 
-//    /**
-//     * @var array $categoryDetailItems
-//     */
-//    public $categoryDetailItems;
-
     public $details;
 
     public $sizingHtml;

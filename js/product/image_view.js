@@ -1,11 +1,13 @@
+/* global Backbone */
+/* global ablefutures */
+/* global _ */
 
 (function() {
-    'use strict'
+    'use strict';
 
     ablefutures.cadmedical.views.image = Backbone.View.extend({
 
         template : _.template($('#imageview_template').html()),
-        //tagName: 'li',
 
         render :  function()
         {

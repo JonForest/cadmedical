@@ -5,11 +5,9 @@
  * @description: Categories Router
  */
 require "common/dbconnection.php";
-//require "classes/category.class.php";
 require "classes/product.class.php";
 require "classes/helper/category.helper.php";
 
-//require_once('recipe.helper.php');
 $method = $_SERVER['REQUEST_METHOD'];
 $action = isset($_GET['action']) ? $_GET['action'] : 'none';
 

@@ -237,17 +237,10 @@ function addUpdateProductDetails(mysqli $con, $product)
 
 
     foreach ($product->productDetailItems as $productDetailItem) {
-//        if (isset($productDetailItem->productDetailItemId)) {
-//            //update
-//            $sql = "update productdetailitems set description=?, productId=? where productDetailItemId=?";
-//            $stmt = $con->prepare($sql);
-//            $stmt->bind_param("sii",$productDetailItem->description, $product->productId, $productDetailItem->productDetailItemId);
-//        } else {
-            //insert
-            $sql = "insert into productdetailitems (productId, description, created, lastUpdated) values (?,?, now(), now())";
-            $stmt = $con->prepare($sql);
-            $stmt->bind_param("is", $product->productId, $productDetailItem->description);
-//        }
+        //Insert
+        $sql = "insert into productdetailitems (productId, description, created, lastUpdated) values (?,?, now(), now())";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("is", $product->productId, $productDetailItem->description);
         $stmt->execute();
     }
 }
@@ -262,12 +255,6 @@ function addUpdateImages(mysqli $con, $product)
                 $stmt = $con->prepare($sql);
                 $stmt->bind_param("ssi",$image->imageTitle, $image->caption, $image->imageId);
                 $stmt->execute();
-            } else {
-                //insert
-    //            $sql = "insert into productdetailitems (productId, description, created, lastUpdated) values (?,?, now(), now())";
-    //            $stmt = $con->prepare($sql);
-    //            $stmt->bind_param("is", $product->productId, $productDetailItem->description);
-
             }
         }
     }
@@ -313,30 +300,11 @@ function getLatestSequence($categoryId)
 
 }
 
-//function addProduct(mysqli $con, $product)
-//{
-//    $sql = "insert into products (categoryId, name, price, created) values (?, ?, ?, now())";
-//    $stmt = $con->prepare($sql);
-//    $stmt->bind_param("isd",$product->categoryId, $product->name, $product->price);
-//    $stmt->execute();
-//
-//    //TODO: sql error check
-//    $product->productId = $con->insert_id;
-//
-//    addUpdateProductDetails($con, $product);
-//
-//
-//    return array('result' => 'success');
-//
-//}
 
 
-//require_once('recipe.helper.php');
 $method = $_SERVER['REQUEST_METHOD'];
 $action = isset($_GET['action']) ? $_GET['action'] : 'none';
 
-
-//$recipeHelper = new RecipeHelper($con);
 
 switch ($method) {
     case "GET":

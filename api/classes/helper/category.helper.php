@@ -4,8 +4,14 @@
  * @description: Category Helper Class
  */
 
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/category.class.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path . "/api/classes/category.class.php";
 
 
 class CategoryHelper {

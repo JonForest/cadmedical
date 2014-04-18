@@ -291,7 +291,6 @@ ablefutures.cadmedical.views.productEdit = Backbone.View.extend({
                     if (images === undefined) {
                         images = new ablefutures.cadmedical.collections.images();
                     }
-                    debugger;
                     images.add(mediaModel);
                     self.model.set({images : images});
                     self.renderImages(self.model.get('images'));

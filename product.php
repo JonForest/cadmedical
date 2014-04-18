@@ -3,21 +3,32 @@
  * @author: Jonathan Hollingsworth
  * @description: Product
  */
+if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === 'www.able-futures.com' ||
+    $_SERVER['SERVER_NAME'] === 'able-futures.com' ) {
+    $path = '/cadmedical';
+} else {
+    $path = '';
+}
 
 // Required files
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/common/dbconnection.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/category.helper.php";
-require $_SERVER["DOCUMENT_ROOT"]."/cadmedical/api/classes/helper/product.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
+require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/product.helper.php";
 
 $categoryId = isset($_GET['c']) ? $_GET['c'] : 0;
+$searchTerm = isset($_REQUEST['searchInput']) ? $_REQUEST['searchInput'] : null;
 
 //Prepare the categories object for bootstrapping into the page
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
 
-$productHelper = new ProductHelper($con);
-$products = $productHelper->getProducts($categoryId);
+$productHelper = new ProductHelper(getConnection());
 
+if ($categoryId !== 0) {
+    $products = $productHelper->getProducts($categoryId);
+} else if (isset($searchTerm)) {
+    $products = $productHelper->searchProducts($searchTerm);
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,11 +64,11 @@ $products = $productHelper->getProducts($categoryId);
 
                     <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
                     <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
-                    <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search">
+                    <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="searchButton" class="btn btn-default">Submit</button>
                         </form></li>
                 </ul>
 
@@ -66,10 +77,6 @@ $products = $productHelper->getProducts($categoryId);
         </div>
     </div>
 
-<!--    <section class="hero-home" id="heroText">-->
-<!--    <!--    <div>A <span class="stand-out">difference</span> in medical imaging</div>-->-->
-<!--    <!--    <div class="subText">World class products at world beating value</div>-->-->
-<!--    </section>-->
     <section id="categoryCommon" class="container">
 
     </section>
@@ -247,12 +254,20 @@ $products = $productHelper->getProducts($categoryId);
 <script language="JavaScript" src="js/product/prices_view.js"></script>
 <script language="JavaScript" src="js/product/product_view.js"></script>
 
-<!--<script language="JavaScript" src="js/site.js"></script>-->
 <script language="JavaScript">
     $(document).ready(function() {
+        $('#searchButton').on('click', function(e) {
+            e.preventDefault();
+            if ($('#searchInput').val().trim() !== '') {
+                $('#searchForm').submit();
+            }
+
+        });
+
+        var categoryId = <?= $categoryId?>;
         var categories = new ablefutures.cadmedical.collections.categories();
         categories.reset(<?=json_encode($categories)?>, {parse : true});
-        var categoryId = <?= $categoryId?>;
+
 
         var categoriesNavView =  new ablefutures.cadmedical.views.categoriesNav(
             {collection : categories,
@@ -267,45 +282,52 @@ $products = $productHelper->getProducts($categoryId);
         var catModel;
         catModel = null;
 
-        categories.each(function(model) {
-            if (parseInt(model.get('categoryId')) === parseInt(categoryId)) {
-                catModel = model;
-            }
-        });
+        // Display the category headers
+        if (categoryId !== 0) {
+            catModel = categories.findWhere({'categoryId' : Number(categoryId)});
+        } else {
+            //This is search results
+            var searchObj = {
+                "name": "Search Results",
+                "heroText": '<div><span class="stand-out">Search</span> results</div><div class="subText">Search term:  <?=$searchTerm?></div>',
+                "created": null,
+                "lastUpdated": null,
+                "status": 1
+            };
+
+            catModel = new ablefutures.cadmedical.models.category(searchObj);
+
+
+        }
 
         var heroTextView = new ablefutures.cadmedical.views.categoriesCommon({model:catModel});
         $('#categoryCommon').append(heroTextView.render().el);
 
         var $products = $('#products');
         var $productNavItems = $('#productNavItems');
+
         $products.empty();
-        //$productNavItems.empty();
+
         var products = new ablefutures.cadmedical.collections.products();
-        products.fetch({
-            data : {categoryId : categoryId},
-            success: function(collection, response, options) {
-                collection.each(function(model) {
-                    var productView = new ablefutures.cadmedical.views.product({model:model});
-                    $products.append(productView.render().$el);
+        products.reset(<?=json_encode($products)?>, {parse :true});
+        products.each(function(model) {
+            var productView = new ablefutures.cadmedical.views.product({model:model});
+            $products.append(productView.render().$el);
 
-                    var productsNav = new ablefutures.cadmedical.views.productsNav({model : model});
-                    $productNavItems.append(productsNav.render().$el);
-                });
-
-                $('body').scrollspy({ target: '#mynav' });
-                $('#mynav').affix(
-                    {
-                        offset: {
-                            top: 200 + $('#detailsDiv').height() //$('#categoryDetailsList').closest('.wellCategoryCommon').parent().height()
-                        }
-                    }
-                );
-            },
-
-            error : function() {
-                console.log('Failed to retrieve product');
-            }
+            var productsNav = new ablefutures.cadmedical.views.productsNav({model : model});
+            $productNavItems.append(productsNav.render().$el);
         });
+
+
+        $('body').scrollspy({ target: '#mynav' });
+        $('#mynav').affix(
+            {
+                offset: {
+                    top: 200 + $('#detailsDiv').height()
+                }
+            }
+        );
+
 
 
     })
