@@ -16,6 +16,7 @@ require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/page.helper.php";
 
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
+$categoryId = isset($_GET['c']) ? $_GET['c'] : 0; //Can probably retire this soon
 
 $reference = $_GET['r'];
 if(isset($reference)) {
@@ -59,8 +60,8 @@ if(isset($reference)) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+<!--                <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>-->
+                <li class="topHeaderMenuItem"><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
                 <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                         <div class="form-group">
                             <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
@@ -101,7 +102,7 @@ if(isset($reference)) {
 <section id="footer" class="navbar navbar-inverse">
     <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 col-xs-12 col-sm-12">
         <ul class="nav navbar-nav">
-            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
+<!--            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>-->
             <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
             <li><a href="content.php?r=returns"><span class="glyphicon glyphicon-repeat"></span> Returns Policy</a></li>
             <li><a href="content.php?r=legal"><span class="glyphicon glyphicon-pencil"></span> Company Info / Legal</a></li>
@@ -134,6 +135,7 @@ if(isset($reference)) {
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="admin/js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNav_view.js"></script>
+<script language="JavaScript" src="js/navigation/categoriesNavSmall_view.js"></script>
 <script language="JavaScript" src="js/content/page_view.js"></script>
 <script language="JavaScript" src="js/site.js"></script>
 <script>
@@ -145,6 +147,8 @@ if(isset($reference)) {
             }
 
         });
+
+        var categoryId = <?=$categoryId?>;
 
         var categories = new ablefutures.cadmedical.collections.categories();
         categories.reset(<?=json_encode($categories)?>);
@@ -160,6 +164,13 @@ if(isset($reference)) {
         });
 
         pageView.render();
+
+        var categoriesNavViewSmall =  new ablefutures.cadmedical.views.categoriesNavSmall(
+            {collection : categories,
+                categoryId : categoryId});
+        $('#categoriesListSmall').append(categoriesNavViewSmall.render().el);
+
+
 
         $('.hero-content').html(page.get('heroText'));
 

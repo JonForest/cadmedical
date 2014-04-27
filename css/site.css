@@ -10,6 +10,11 @@
     margin-bottom: 50px;
 }
 
+/** Header classes **/
+.topHeaderMenuItem {
+    padding-top: 18px;
+}
+
 
 /* Helper Classes */
 .smallVerticalSpacer {
@@ -34,7 +39,7 @@ label.error {
 
 /* Products display */
 .bodyproduct {
-    padding-top: 0px;
+    padding-top: 0;
     font-size: 17px;
 }
 

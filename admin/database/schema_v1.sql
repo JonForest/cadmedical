@@ -104,3 +104,11 @@ create table categorydetailitems (
     lastUpdated timestamp not null on update current_timestamp,
     foreign key FK_categorydetailsitems_categories (categoryId) references categories(categoryId) on delete cascade
 )  engine InnoDB;
+
+
+create table statuses (
+  statusId tinyint unsigned not null primary key,
+  description varchar(200) not null,
+  created datetime not null,
+  lastupdated timestamp not null on update current_timestamp
+) engine InnoDB;

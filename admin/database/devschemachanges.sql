@@ -17,3 +17,12 @@ alter table categories
 alter table categories add column sizingHtml text null after details;
 
 alter table pages add column heroText text null after reference;
+
+insert into statuses (statusId, description, created) VALUES
+  (0, 'deleted', now()),
+  (1, 'enabled', now()),
+  (2, 'disabled', now()),
+  (3, 'footer only', now()),
+  (4, 'header only', now())
+
+update pages set status=2 where title = 'About Us';
