@@ -1,6 +1,9 @@
+/* global Backbone */
+/* global ablefutures */
+/* global _ */
 
 (function() {
-    'use strict'
+    'use strict';
 
     ablefutures.cadmedical.views.price = Backbone.View.extend({
 

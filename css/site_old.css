@@ -7,29 +7,8 @@ html, body {
     height: 100%;
 }
 
-
-/* Wrapper for page content to push down footer */
-#wrap {
-    min-height: 100%;
-    height: auto;
-    /* Negative indent footer by its height */
-    margin: 0 auto -40px;
-    /* Pad bottom by footer height */
-    padding: 0 0 60px;
-}
-
-
-
-
-.body {
-    padding-top: 20px;
-    font-size: 20px;
-}
-
-
-
 .bodyproduct2 {
-    padding-top: 0px;
+    padding-top: 0;
     font-size: 17px;
 }
 
@@ -68,20 +47,6 @@ a.navbar-brand{
     font-size: 30px;
     line-height: 30px;
 }
-
-/*.logo .navbar-brand h1 > a {*/
-    /*color: #999999;*/
-/*}*/
-
-/*.logo h1 > a:hover {*/
-    /*text-decoration: none;*/
-    /*color: #ffffff;*/
-/*}*/
-
-/*.logo > a {*/
-    /*font-size: 35px;*/
-    /*line-height: 35px;*/
-/*}*/
 
 .menu {
     background-color: #222222;
@@ -149,21 +114,6 @@ a.navbar-brand{
 }
 
 
-
-/*@media (min-width: 979px) {*/
-    /*#mynav.affix-top {*/
-        /*position: static;*/
-        /*width: 100px;*/
-        /*max-resolution: -300px;*/
-        /*margin-top:300px;*/
-    /*}*/
-/*}*/
-
-/*#mynav.affix {*/
-    /*position: fixed;*/
-    /*width: 100px;*/
-    /*top:200px;*/
-/*}*/
 @media (min-width: 979px) {
     #mynav.affix-top {
         position: static;
@@ -178,18 +128,6 @@ a.navbar-brand{
 
     }
 }
-/*#sidebar.affix-top {*/
-    /*position: static;*/
-    /*margin-top:25px;*/
-    /*width:228px;*/
-/*}*/
-
-/*#sidebar.affix {*/
-    /*position: fixed;*/
-    /*top:25px;*/
-    /*width:228px;*/
-
-/*}*/
 
 
 #mynav li a {
@@ -209,11 +147,6 @@ a.navbar-brand{
     background-color: #428bca;
 }
 
-
-#products {
-    /*padding-top: 200px;*/
-    /*margin-top: -200px;*/
-}
 
 .product {
     padding-top: 200px;

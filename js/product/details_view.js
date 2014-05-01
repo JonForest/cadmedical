@@ -1,10 +1,11 @@
+/* global Backbone */
+/* global ablefutures */
+/* global _ */
 
 (function() {
-    'use strict'
+    'use strict';
 
     ablefutures.cadmedical.views.details = Backbone.View.extend({
-
-        //template : _.template($('#details_template').html()),
 
         tagName : 'ul',
 

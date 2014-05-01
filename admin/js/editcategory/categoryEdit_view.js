@@ -1,8 +1,8 @@
 (function($) {
 
-    'use strict'
+    'use strict';
 
-    ablefutures.cadmedical.views.productEdit = Backbone.View.extend({
+    ablefutures.cadmedical.views.categoryEdit = Backbone.View.extend({
 
         template : _.template($('#categoryedit_template').html()),
         categoryDetailsTemplate : _.template($('#commonDetails_template').html()),
@@ -95,10 +95,9 @@
             });
         },
 
-        syncContent : function(e)
+        syncContent : function()
         {
             //Keep default action
-
             this.$('#heroTextPreview').html(this.$('#heroTextTxt').val());
         },
 
@@ -174,7 +173,7 @@
             }
         },
 
-        syncSizing : function(e)
+        syncSizing : function()
         {
             this.$('#sizingPreview').html(this.$('#sizingTxt').val());
         }

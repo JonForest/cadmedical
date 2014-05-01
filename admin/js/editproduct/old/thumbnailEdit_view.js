@@ -46,7 +46,6 @@
                 e.preventDefault(); //stop the hash
             }
 
-            debugger;
             this.model.set({
                 imageTitle: this.$('#titleInput').val(),
                 caption : this.$('#captionTxt').val()
