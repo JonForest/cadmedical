@@ -27,6 +27,36 @@ class PageHelper {
         $this->con = getConnection();
     }
 
+    public function getPageLinks()
+    {
+        $title = '';
+        $pageId = 0;
+        $reference = '';
+
+
+        $sql = "select p.pageId, p.title, p.reference from pages p where ".
+            "p.status not in (0,2)";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($pageId, $title, $reference);
+        $pages = array();
+
+        if ($stmt->num_rows > 0) {
+            while ($stmt->fetch())
+            {
+                $page = new Page();
+                $page->pageId = $pageId;
+                $page->title = $title;
+                $page->reference = $reference;
+
+                $pages[] = $page;
+            }
+        }
+
+        return $pages;
+    }
+
     public function getPages()
     {
         $title = '';
@@ -35,8 +65,8 @@ class PageHelper {
         $contentId = 0;
         $html = '';
 
-        $sql = 'select p.pageId, p.title, p.reference, p.heroText, c.contentId, c.html from pages p left join content c on p.pageId = c.pageId where '.
-                'p.status=1 and (c.status=1 or c.status is null)';
+        $sql = "select p.pageId, p.title, p.reference, p.heroText, c.contentId, c.html from pages p left join content c on p.pageId = c.pageId where ".
+            "p.status not in (0) and (c.status=1 or c.status is null)";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $stmt->store_result();
@@ -72,14 +102,16 @@ class PageHelper {
         $contentId = 0;
         $html = '';
         $heroText = '';
+        $status = 0;
 
-        $sql = 'select p.pageId, p.title, p.reference, p.heroText, c.contentId, c.html from pages p left join content c on p.pageId = c.pageId where '.
-            'p.status=1 and (c.status=1 or c.status is null) and p.pageId=?';
+        $sql = "select p.pageId, p.title, p.reference, p.heroText, c.contentId, c.html, p.status from pages p left ".
+            "join content c on p.pageId = c.pageId where ".
+            "(c.status=1 or c.status is null) and p.pageId=?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param('i', $pageId);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($pageId, $title, $reference, $heroText, $contentId, $html);
+        $stmt->bind_result($pageId, $title, $reference, $heroText, $contentId, $html, $status);
 
         $page = new Page();
 
@@ -90,6 +122,7 @@ class PageHelper {
                 $page->title = $title;
                 $page->reference = $reference;
                 $page->heroText = $heroText;
+                $page->status = $status;
 
                 $content = new Content();
                 $content->html = $html;
@@ -105,9 +138,9 @@ class PageHelper {
     {
         if (isset($page->pageId)) {
             // Update the page row
-            $sql = 'update pages set title=?, reference=?, heroText=? where pageId=?';
+            $sql = 'update pages set title=?, reference=?, heroText=?, status=? where pageId=?';
             $stmt = $this->con->prepare($sql);
-            $stmt->bind_param('sssi', $page->title, $page->reference, $page->heroText, $page->pageId);
+            $stmt->bind_param('sssii', $page->title, $page->reference, $page->heroText, $page->status, $page->pageId);
             $stmt->execute();
 
             // set any existing content rows to archived
@@ -126,9 +159,9 @@ class PageHelper {
 
         } else {
             // New
-            $sql = 'insert into pages (title, reference, heroText, created) values (?, ?, now())';
+            $sql = 'insert into pages (title, reference, heroText, status, created) values (?, ?, ?, now())';
             $stmt = $this->con->prepare($sql);
-            $stmt->bind_param('sss', $page->title, $page->reference, $page->heroText);
+            $stmt->bind_param('sssi', $page->title, $page->reference, $page->heroText, $page->status);
             $stmt->execute();
             $stmt->store_result();
 
@@ -143,6 +176,11 @@ class PageHelper {
         return array('success'=>true);
     }
 
+    /**
+     * Get a page from a provided reference string
+     * @param string $ref
+     * @return Page
+     */
     public function getPageByRef($ref)
     {
         $pageId = 0;
@@ -177,5 +215,28 @@ class PageHelper {
 
         return $page;
 
+    }
+
+    /**
+     * Get all the statuses
+     */
+    public function getStatuses()
+    {
+        $statuses = array();
+
+        $sql = "select statusId, description from statuses where description not in ('Deleted')";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $stmt->bind_result($statusId, $description);
+
+        $status = array();
+        while ($stmt->fetch()) {
+            $status['statusId'] = $statusId;
+            $status['description'] = $description;
+
+            $statuses[] = $status;
+        }
+
+        return $statuses;
     }
 }

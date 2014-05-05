@@ -63,7 +63,7 @@ if ($categoryId !== 0) {
                 <ul class="nav navbar-nav navbar-right">
 
 <!--                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>-->
-                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span> Contact Us</a></li>
                     <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                             <div class="form-group">
                                 <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">

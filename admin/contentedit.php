@@ -22,6 +22,7 @@ if (isset($pageId)) {
     //Prepare the pages object for bootstrapping into the page
     $pageHelper = new pageHelper();
     $page = $pageHelper->getPage($pageId);
+    $statuses = $pageHelper->getStatuses();
 }
 
 ?>
@@ -85,6 +86,13 @@ if (isset($pageId)) {
                     <div class="form-group">
                         <label for="heroText">HeroText</label>
                         <textarea id="heroText" class="form-control"><%=model.get('heroText')%></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="visibilitySelect">Visibility</label>
+                        <select id="visibilitySelect" class="form-control">
+
+                        </select>
                     </div>
 
                     <pre class="aceEditor" id="pageContent"></pre>
@@ -155,7 +163,8 @@ if (isset($pageId)) {
         page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
         contentView = new ablefutures.cadmedical.views.pageEdit(
             {model : page,
-            el : '#tabContent'}
+            el : '#tabContent',
+            statuses : <?=json_encode($statuses)?>}
         );
 
         contentView.render();

@@ -19,10 +19,14 @@ alter table categories add column sizingHtml text null after details;
 alter table pages add column heroText text null after reference;
 
 insert into statuses (statusId, description, created) VALUES
-  (0, 'deleted', now()),
-  (1, 'enabled', now()),
-  (2, 'disabled', now()),
-  (3, 'footer only', now()),
-  (4, 'header only', now())
+  (0, 'Deleted', now()),
+  (1, 'Enabled', now()),
+  (2, 'Disabled', now()),
+  (3, 'Footer only', now()),
+  (4, 'Header only', now()),
+  (5, 'Header and Footer', now());
 
-update pages set status=2 where title = 'About Us';
+update pages set status=2 where reference = 'about';
+update pages set status=5 where reference = 'contact';
+update pages set status=3 where reference = 'legal';
+update pages set status=3 where reference = 'returns';

@@ -17,15 +17,18 @@ require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/page.helper.php";
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
 $categoryId = isset($_GET['c']) ? $_GET['c'] : 0; //Can probably retire this soon
+$pageHelper = new PageHelper();
+$pagesNav = $pageHelper->getPageLinks();
 
 $reference = $_GET['r'];
 if(isset($reference)) {
-    $pageHelper = new PageHelper();
     $page = $pageHelper->getPageByRef($reference);
 } else {
     header('Location: index.php');
     die;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -126,7 +129,6 @@ if(isset($reference)) {
     </script>
 </section>
 
-
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
 <script language="javascript" src="js/libraries/jquery.validate.min.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
@@ -148,24 +150,30 @@ if(isset($reference)) {
 
         });
 
-        var categoryId = <?=$categoryId?>;
+        var categoryId = <?=$categoryId?>,
+            pages = <?=json_encode($pagesNav)?>,
+            categories,
+            categoriesNavView,
+            page,
+            pageView,
+            categoriesNavViewSmall;
 
-        var categories = new ablefutures.cadmedical.collections.categories();
+        categories = new ablefutures.cadmedical.collections.categories();
         categories.reset(<?=json_encode($categories)?>);
 
-        var categoriesNavView =  new ablefutures.cadmedical.views.categoriesNav(
+        categoriesNavView =  new ablefutures.cadmedical.views.categoriesNav(
             {collection : categories});
         $('#categoriesList').append(categoriesNavView.render().el);
 
-        var page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
-        var pageView = new ablefutures.cadmedical.views.page({
+        page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
+        pageView = new ablefutures.cadmedical.views.page({
             model : page,
             el : '#mainHtml'
         });
 
         pageView.render();
 
-        var categoriesNavViewSmall =  new ablefutures.cadmedical.views.categoriesNavSmall(
+        categoriesNavViewSmall =  new ablefutures.cadmedical.views.categoriesNavSmall(
             {collection : categories,
                 categoryId : categoryId});
         $('#categoriesListSmall').append(categoriesNavViewSmall.render().el);

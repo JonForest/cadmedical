@@ -1,3 +1,9 @@
+/* global ablefutures */
+/* global console */
+/* global Backbone */
+/* global _ */
+/* global editor */
+
 (function($) {
 
     'use strict';
@@ -5,6 +11,7 @@
     ablefutures.cadmedical.views.pageEdit = Backbone.View.extend({
 
         template : _.template($('#contentEdit_template').html()),
+        statuses : [],
 
         events : {
             'click #submitButton' : 'savePage',
@@ -13,9 +20,38 @@
             'change #heroText' : 'syncHeroText'
         },
 
+        /**
+         *
+         * @param {Object} options
+         */
+        initialize : function(options)
+        {
+            this.statuses = options.statuses;
+        },
+
         render : function()
         {
+            var $statuses = [],
+                statusHtml = '';
+
             this.$el.html(this.template({model : this.model}));
+
+            _.each(this.statuses, function(status) {
+                statusHtml = '<option value="' + status.statusId + '"';
+
+                if (Number(status.statusId) === Number(this.model.get('status'))) {
+                    statusHtml += ' selected';
+                }
+                if (status.description === 'Enabled') {
+                    status.description = 'Not in header or footer';
+                }
+
+                statusHtml += '>' + status.description + '</option>';
+                $statuses.push(statusHtml);
+            }.bind(this));
+
+            this.$('#visibilitySelect').append($statuses);
+
             this.syncPageName();
             this.syncReference();
             return this;
@@ -44,6 +80,8 @@
             this.model.set('reference', this.$('#reference').val());
             this.model.set('html', editor.getSession().getValue());
             this.model.set('heroText', this.$('#heroText').val());
+            this.model.set('status', this.$('#visibilitySelect').val());
+            debugger;
 
             console.log('Saving Id: ' + this.model.get('pageId'));
 
@@ -61,5 +99,5 @@
                 }
             });
         }
-    })
+    });
 }($));
