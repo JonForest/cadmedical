@@ -34,8 +34,8 @@ if (isset($_REQUEST['p'])) {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.0.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.0.3/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
@@ -181,7 +181,7 @@ if (isset($_REQUEST['p'])) {
 
     <script language="Javascript" src="../js/libraries/jquery2.0.3.js"></script>
     <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
-    <script language="Javascript" src="../bootstrap/js/bootstrap.js"></script>
+    <script language="Javascript" src="../bootstrap/3.0.3/js/bootstrap.js"></script>
     <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
     <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
     <script language="JavaScript" src="js/editproduct/categoryOptions_view.js"></script>

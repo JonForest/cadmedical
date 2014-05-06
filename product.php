@@ -35,8 +35,8 @@ if ($categoryId !== 0) {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/3.1.1/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="css/site_old.css">
     <link rel="stylesheet" type="text/css" href="css/site.css">
 </head>
@@ -62,8 +62,8 @@ if ($categoryId !== 0) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+<!--                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>-->
+                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
                     <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                             <div class="form-group">
                                 <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
@@ -116,7 +116,7 @@ if ($categoryId !== 0) {
 <section id="footer" class="navbar navbar-inverse">
     <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 col-xs-12 col-sm-12">
         <ul class="nav navbar-nav">
-            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
+<!--            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>-->
             <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
             <li><a href="content.php?r=returns"><span class="glyphicon glyphicon-repeat"></span> Returns Policy</a></li>
             <li><a href="content.php?r=legal"><span class="glyphicon glyphicon-pencil"></span> Company Info / Legal</a></li>
@@ -217,7 +217,7 @@ if ($categoryId !== 0) {
     </script>
 
     <script type="text/template" id="productModal_template">
-        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -231,8 +231,8 @@ if ($categoryId !== 0) {
                         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-         </div>
-      </div>
+            </div>
+        </div>
     </script>
 
 </section>
@@ -240,7 +240,7 @@ if ($categoryId !== 0) {
 
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
-<script language="javascript" src="bootstrap/js/bootstrap.js"></script>
+<script language="javascript" src="bootstrap/3.0.3/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="admin/js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNav_view.js"></script>
