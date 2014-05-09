@@ -38,9 +38,9 @@ if (isset($_GET['a']) && $_GET['a'] === 'content') {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
-<!--    <link rel="stylesheet" type="text/css" href="../css/site.css">-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="../css/site.css">
 </head>
 <body>
 <h1>Admin page</h1>
@@ -116,7 +116,7 @@ if (isset($_GET['a']) && $_GET['a'] === 'content') {
 
 <script language="Javascript" src="../js/libraries/jquery2.0.3.js"></script>
 <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
-<script language="Javascript" src="../bootstrap/js/bootstrap.js"></script>
+<script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/landing/productList_view.js"></script>

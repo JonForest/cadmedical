@@ -34,8 +34,8 @@ if (isset($_REQUEST['p'])) {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
@@ -52,9 +52,6 @@ if (isset($_REQUEST['p'])) {
         </div>
 
     </section>
-
-
-
 
 
 <section id="templates">
@@ -87,23 +84,12 @@ if (isset($_REQUEST['p'])) {
                     <button class="btn btn-primary" id="addPricesButton"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
 
-            <!--<div class="form-group">-->
-                <!--<label for="productPriceInput">Product Price</label>-->
-                <!--<div class="input-group">-->
-                    <!--<span class="input-group-addon">$</span>-->
-                    <!--<input id="productPriceInput" placeholder="Amount in dollars" class="form-control" value="<%=model.get('price')%>">-->
-                <!--</div>-->
-            <!--</div>-->
             <div class="form-group" >
                 <label>Product Details</label>
                 <ol id="detailsGroup">
                 </ol>
                 <button class="btn btn-primary" id="addDetailsButton"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
-            <!--        <div class="form-group">-->
-            <!--            <label for="productNameInput">Product Name</label>-->
-            <!--            <input id="productNameInput" placeholder="Enter product name" class="form-control">-->
-            <!--        </div>-->
 
             <div class="smallVerticalSpacer"></div>
             <button class="btn btn-success pull-right footerButton" id="submitButton"><span class="glyphicon glyphicon-save"></span> Save</button>
@@ -181,7 +167,7 @@ if (isset($_REQUEST['p'])) {
 
     <script language="Javascript" src="../js/libraries/jquery2.0.3.js"></script>
     <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
-    <script language="Javascript" src="../bootstrap/js/bootstrap.js"></script>
+    <script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
     <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
     <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
     <script language="JavaScript" src="js/editproduct/categoryOptions_view.js"></script>

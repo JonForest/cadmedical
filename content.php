@@ -14,6 +14,7 @@ require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/common/dbconnection.php";
 require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/category.helper.php";
 require $_SERVER["DOCUMENT_ROOT"]. $path ."/api/classes/helper/page.helper.php";
 
+$categoryId = isset($_GET['c']) ? $_GET['c'] : 0;
 $categoryHelper = new CategoryHelper($con);
 $categories = $categoryHelper->getAllCategories();
 
@@ -31,8 +32,8 @@ if(isset($reference)) {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/3.1.1/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="css/site_old.css">
     <link rel="stylesheet" type="text/css" href="css/site.css">
 </head>
@@ -59,8 +60,8 @@ if(isset($reference)) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>
-                <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone hidden-xs hidden-sm"></span><br>Contact Us</a></li>
+<!--                <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>-->
+                <li class="topHeaderMenuItem"><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
                 <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                         <div class="form-group">
                             <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
@@ -101,13 +102,21 @@ if(isset($reference)) {
 <section id="footer" class="navbar navbar-inverse">
     <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 col-xs-12 col-sm-12">
         <ul class="nav navbar-nav">
-            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
+<!--            <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>-->
             <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
             <li><a href="content.php?r=returns"><span class="glyphicon glyphicon-repeat"></span> Returns Policy</a></li>
             <li><a href="content.php?r=legal"><span class="glyphicon glyphicon-pencil"></span> Company Info / Legal</a></li>
         </ul>
     </div>
 </section>
+
+<div id="leadComparisonModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            dgdfgdf
+        </div>
+    </div>
+</div>
 
 
 <section id="templates">
@@ -129,11 +138,12 @@ if(isset($reference)) {
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
 <script language="javascript" src="js/libraries/jquery.validate.min.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
-<script language="javascript" src="bootstrap/js/bootstrap.js"></script>
+<script language="javascript" src="bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="admin/js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNav_view.js"></script>
+<script language="JavaScript" src="js/navigation/categoriesNavSmall_view.js"></script>
 <script language="JavaScript" src="js/content/page_view.js"></script>
 <script language="JavaScript" src="js/site.js"></script>
 <script>
@@ -146,20 +156,34 @@ if(isset($reference)) {
 
         });
 
-        var categories = new ablefutures.cadmedical.collections.categories();
+        var categoryId = <?=$categoryId?>,
+            categories,
+            categoriesNavView,
+            page,
+            pageView,
+            categoriesNavViewSmall;
+
+        categories = new ablefutures.cadmedical.collections.categories();
         categories.reset(<?=json_encode($categories)?>);
 
-        var categoriesNavView =  new ablefutures.cadmedical.views.categoriesNav(
+        categoriesNavView =  new ablefutures.cadmedical.views.categoriesNav(
             {collection : categories});
         $('#categoriesList').append(categoriesNavView.render().el);
 
-        var page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
-        var pageView = new ablefutures.cadmedical.views.page({
+        page = new ablefutures.cadmedical.models.page(<?=json_encode($page)?>, {parse : true});
+        pageView = new ablefutures.cadmedical.views.page({
             model : page,
             el : '#mainHtml'
         });
 
         pageView.render();
+
+        categoriesNavViewSmall =  new ablefutures.cadmedical.views.categoriesNavSmall(
+            {collection : categories,
+                categoryId : categoryId});
+        $('#categoriesListSmall').append(categoriesNavViewSmall.render().el);
+
+
 
         $('.hero-content').html(page.get('heroText'));
 
