@@ -38,9 +38,9 @@ if (isset($_GET['a']) && $_GET['a'] === 'content') {
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/3.0.3/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/3.0.3/css/bootstrap-theme.css">
-<!--    <link rel="stylesheet" type="text/css" href="../css/site.css">-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/3.1.1/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="../css/site.css">
 </head>
 <body>
 <h1>Admin page</h1>

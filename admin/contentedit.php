@@ -118,8 +118,8 @@ if (isset($pageId)) {
 
 <script language="Javascript" src="../js/libraries/jquery2.0.3.js"></script>
 <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
-<script language="Javascript" src="../bootstrap/3.0.3/js/bootstrap.js"></script>
-<script language="Javascript" src="../bootstrap/3.0.3/js/bootstrap-switch.min.js"></script>
+<script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
+<script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap-switch.min.js"></script>
 <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/editcontent/pageEdit_view.js"></script>
