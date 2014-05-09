@@ -63,7 +63,7 @@ if ($categoryId !== 0) {
                 <ul class="nav navbar-nav navbar-right">
 
 <!--                    <li><a href="content.php?r=about"><span class="glyphicon glyphicon-question-sign hidden-xs hidden-sm"></span><br>About</a></li>-->
-                    <li><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
+                    <li class="topHeaderMenuItem"><a href="content.php?r=contact"><span class="glyphicon glyphicon-earphone"></span> Contact Us</a></li>
                     <li class="hidden-xs hidden-sm"><form class="navbar-form navbar-left search" role="search" id="searchForm" method="post" action="product.php">
                             <div class="form-group">
                                 <input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search">
@@ -240,7 +240,7 @@ if ($categoryId !== 0) {
 
 <script language="javascript" src="js/libraries/jquery2.0.3.js"></script>
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
-<script language="javascript" src="bootstrap/3.0.3/js/bootstrap.js"></script>
+<script language="javascript" src="bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
 <script language="JavaScript" src="admin/js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNav_view.js"></script>

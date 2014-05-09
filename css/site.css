@@ -5,6 +5,10 @@
     height: 75px;
 }
 
+li.topHeaderMenuItem > a {
+    padding-top: 33px;
+}
+
 .logo {
     font-size: 15px;
     color: #ffffff;
