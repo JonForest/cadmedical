@@ -242,7 +242,7 @@ if ($categoryId !== 0) {
 <script language="JavaScript" src="js/libraries/underscore-1.5.2-min.js"></script>
 <script language="javascript" src="bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="JavaScript" src="js/libraries/backbone-1.1.0-min.js"></script>
-<script language="JavaScript" src="admin/js/basiccollectionsmodels.js"></script>
+<script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNav_view.js"></script>
 <script language="JavaScript" src="js/navigation/categoriesNavSmall_view.js"></script>
 <script language="JavaScript" src="js/navigation/productsNav_view.js"></script>

@@ -118,7 +118,7 @@ if (isset($_GET['a']) && $_GET['a'] === 'content') {
 <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
 <script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
-<script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
+<script language="JavaScript" src="../js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/landing/productList_view.js"></script>
 <script language="JavaScript" src="js/landing/categoryList_view.js"></script>
 <script language="JavaScript" src="js/landing/pagesList_view.js"></script>

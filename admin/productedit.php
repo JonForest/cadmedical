@@ -169,7 +169,7 @@ if (isset($_REQUEST['p'])) {
     <script language="JavaScript" src="../js/libraries/underscore-1.5.2-min.js"></script>
     <script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
     <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
-    <script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
+    <script language="JavaScript" src="../js/basiccollectionsmodels.js"></script>
     <script language="JavaScript" src="js/editproduct/categoryOptions_view.js"></script>
     <script language="JavaScript" src="js/editproduct/productEdit_view.js"></script>
     <script language="JavaScript" src="js/editproduct/productEdit_app.js"></script>
