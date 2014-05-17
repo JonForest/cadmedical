@@ -24,7 +24,7 @@ $mail->SMTPDebug  = 0;                     // enables SMTP debug information (fo
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->Port       = 25;                   // SMTP port for the GMAIL server 465 or 587
 $mail->Username   = 'contact@radiology-services.co.nz';  // SMTP account username example
-$mail->Password   = 'eNf2st96';
+$mail->Password   = 'xxxxxx';
 $mail->SetFrom('contact@radiology-services.co.nz', 'Website Enquiry'); //set from name
 $mail->AddAddress('jonforest@gmail.com');
 $mail->AddAddress('jamedcad@gmail.com');

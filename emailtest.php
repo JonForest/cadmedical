@@ -12,16 +12,12 @@ $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->CharSet = 'UTF-8';
 $mail->Host       = "mail.radiology-services.co.nz";      // SMTP server example, use smtp.live.com for Hotmail
-$mail->Host       = "mail.radiology-services.co.nz";      // SMTP server example, use smtp.live.com for Hotmail
 $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->Port       = 25;                   // SMTP port for the GMAIL server 465 or 587
 $mail->Username   = "contact@radiology-services.co.nz";  // SMTP account username example
-$mail->Password   = "eNf2st96";
+$mail->Password   = "xxxxxx";
 $mail->SetFrom('Peter@dmith.com', 'First Lastsssss'); //set from name
-$mail->Port       = 25;                   // SMTP port for the GMAIL server 465 or 587
-$mail->Username   = "contact@radiology-services.co.nz";  // SMTP account username example
-$mail->Password   = "eNf2st96";
 $mail->SetFrom('contact@radiology-services.co.nz', 'Website Enquiry'); //set from name
 $mail->AddAddress('jonforest@gmail.com');
 $mail->Subject = "Test subject";
