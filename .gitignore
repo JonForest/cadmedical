@@ -1,3 +1,6 @@
 api/common/dbconnection.php
 images/common
 images/thumbnail
+admin/.htaccess
+admin/.htpasswd
+info.php
