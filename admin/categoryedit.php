@@ -150,7 +150,7 @@ if (!isset($categoryId)) {
 <script language="Javascript" src="../bootstrap/3.1.1/js/bootstrap.js"></script>
 <script language="Javascript" src="../bootstrap/3.0.3/js/bootstrap-switch.min.js"></script>
 <script language="JavaScript" src="../js/libraries/backbone-1.1.0-min.js"></script>
-<script language="JavaScript" src="js/basiccollectionsmodels.js"></script>
+<script language="JavaScript" src="../js/basiccollectionsmodels.js"></script>
 <script language="JavaScript" src="js/editcategory/categoryEdit_view.js"></script>
 <script language="JavaScript" src="js/editcategory/categoryEdit_app.js"></script>
 <script language="Javascript" src="../ckeditor4/ckeditor.js"></script>
