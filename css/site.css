@@ -50,7 +50,7 @@ label.error {
 
 /* Products display */
 .bodyproduct {
-    padding-top: 0px;
+    padding-top: 0;
     font-size: 17px;
 }
 
@@ -179,4 +179,10 @@ label.error {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
+}
+
+/* Lead comparison carousel */
+.carousel-inner > .item > img { margin: 0 auto; }
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
 }
