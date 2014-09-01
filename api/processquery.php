@@ -24,7 +24,7 @@ $mail->SMTPDebug  = 0;                     // enables SMTP debug information (fo
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->Port       = 465;                   // SMTP port for the GMAIL server 465 or 587
 $mail->Username   = "jonforest@gmail.com";  // SMTP account username example
-$mail->Password   = "9dwaCVB";
+$mail->Password   = "xxxxxxx";
 $mail->SetFrom('Peter@dmith.com', 'First Lastsssss'); //set from name
 $mail->AddAddress('jonforest@gmail.com');
 $mail->Subject = "Enquiry from " . $name;
